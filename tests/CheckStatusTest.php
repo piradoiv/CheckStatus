@@ -80,4 +80,12 @@ class CheckStatusTest extends PHPUnit_Framework_TestCase
     $this->assertTrue(isset($summary['failure']));
     $this->assertTrue(isset($summary['responseTime']));
   }
+
+  public function testNotFoundUrlsShouldReturnEmptySummary()
+  {
+    $response = $this->checker->fetchUrl('http://www.piradoiv.es/');
+    $summary = $response->getSummary();
+
+    $this->assertTrue(isset($summary['failure']));
+  }
 }

@@ -9,9 +9,11 @@ class Status
   private $_responseTime;
   private $_success;
 
-  public function __construct(\CurlResponse $response = null)
+  public function __construct($response = null)
   {
     $this->_response = $response;
+
+    return $this->getSummary();
   }
 
   public function getCode()
@@ -30,11 +32,22 @@ class Status
 
   public function getSummary()
   {
-    $summary = array(
-      'success' => $this->isSuccess(),
-      'failure' => $this->isFailure(),
-      'responseTime' => $this->getResponseTime()
-    );
+    // \CurlResponse
+    if ($this->_response instanceof \CurlResponse) {
+      $summary = array(
+        'success' => $this->isSuccess(),
+        'failure' => $this->isFailure(),
+        'responseTime' => $this->getResponseTime()
+      );
+
+    } else {
+      $summary = array(
+        'success' => false,
+        'failure' => true,
+        'responseTime' => -1
+      );
+    }
+    
 
     return $summary;
   }
