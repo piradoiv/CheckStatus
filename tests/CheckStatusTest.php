@@ -4,7 +4,9 @@ class CheckStatusTest extends PHPUnit_Framework_TestCase
 {
   public function setUp()
   {
+    $this->checker = new CheckStatus\CheckStatus();
     $this->url = 'http://localhost/';
+    $this->response = $this->checker->fetchUrl($this->url);
   }
 
   public function testComposerIsLoaded()
@@ -15,8 +17,7 @@ class CheckStatusTest extends PHPUnit_Framework_TestCase
 
   public function testCanFetchUrl()
   {
-    $checker = new CheckStatus\CheckStatus();
-    $response = $checker->fetchUrl('http://localhost/');
+    $response = $this->response;
 
     $this->assertNotNull($response);
     $this->assertInstanceOf('CheckStatus\Status', $response);
