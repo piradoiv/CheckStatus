@@ -68,4 +68,16 @@ class CheckStatusTest extends PHPUnit_Framework_TestCase
 
     $this->assertFalse($isFailure);
   }
+
+  public function testSummary()
+  {
+    $response = $this->response;
+    $summary = $response->getSummary();
+
+    $this->assertTrue(is_array($summary));
+    $this->assertNotEmpty($summary);
+    $this->assertTrue(isset($summary['success']));
+    $this->assertTrue(isset($summary['failure']));
+    $this->assertTrue(isset($summary['responseTime']));
+  }
 }
