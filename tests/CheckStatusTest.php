@@ -25,6 +25,25 @@ class CheckStatusTest extends PHPUnit_Framework_TestCase
     $this->assertEquals(200, $response->getCode());
   }
 
+  public function testPrepareUrl()
+  {
+    $this->assertEquals('http://example.com', $this->checker->prepareUrl('example.com'));
+    $this->assertEquals('http://gphasdgoaief.com', $this->checker->prepareUrl('gphasdgoaief.com'));
+  }
+
+  public function testInvalidUrls()
+  {
+    $this->assertFalse($this->checker->isValidUrl('gphasdgoaief'));
+    $this->assertTrue($this->checker->isValidUrl('gphasdgoaief.com'));
+    $this->assertTrue($this->checker->isValidUrl('https://www.google.com/'));
+    $this->assertTrue($this->checker->isValidUrl('http://www.piradoiv.com/'));
+  }
+
+  public function testPreventFetchInvalidUrls()
+  {
+    $this->assertFalse($this->checker->fetchUrl('gapohwiawfeih'));
+  }
+
   public function testResponseTime()
   {
     $response = $this->response;
