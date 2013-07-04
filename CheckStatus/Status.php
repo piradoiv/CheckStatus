@@ -24,10 +24,6 @@ class Status
 
   public function getResponseTime()
   {
-    if (!$this->_responseTime) {
-      $this->_responseTime = $this->_response->responseTime;
-    }
-
     return $this->_responseTime;
   }
 
