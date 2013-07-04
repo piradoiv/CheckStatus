@@ -1,0 +1,22 @@
+{
+  "name": "checkstatus/checkstatus",
+  "type": "library",
+  "description": "Check the status of a website",
+  "keywords": ["curl", "test"],
+  "homepage": "http://github.com/piradoiv/CheckStatus",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Ricardo Cruz",
+      "email": "piradoiv@gmail.com",
+      "homepage": "http://www.piradoiv.com/"
+    }
+  ],
+  "require": {
+    "php": ">=5.3.0",
+    "shuber/curl": "dev-master"
+  },
+  "autoload": {
+    "psr-0": { "CheckStatus": "." }
+  }
+}
