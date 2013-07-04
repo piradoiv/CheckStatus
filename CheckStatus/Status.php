@@ -28,6 +28,17 @@ class Status
     return $this->_responseTime;
   }
 
+  public function getSummary()
+  {
+    $summary = array(
+      'success' => $this->isSuccess(),
+      'failure' => $this->isFailure(),
+      'responseTime' => $this->getResponseTime()
+    );
+
+    return $summary;
+  }
+
   public function setResponseTime($time)
   {
     $this->_responseTime = $time;
