@@ -6,6 +6,10 @@ class CheckStatus
 {
   public function fetchUrl($url = null)
   {
+    if (!$this->isValidUrl($url)) {
+      return false;
+    }
+
     $curl = new \Curl();
     $initTime = microtime(true);
     $response = $curl->get($url);
