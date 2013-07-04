@@ -15,4 +15,35 @@ class CheckStatus
 
     return $status;
   }
+
+  public function isValidUrl($url = null)
+  {
+    if (!$url) {
+      return false;
+    }
+
+    $url = $this->prepareUrl($url);
+    $parsedUrl = parse_url($url);
+
+    if (!isset($parsedUrl['host'])) {
+      return false;
+    }
+
+    if (!preg_match("/\./", $parsedUrl['host'])) {
+      return false;
+    }
+  
+    return true;
+  }
+
+  public function prepareUrl($url = null)
+  {
+    $pattern = "/^http(s)?:\/\//";
+
+    if (!preg_match($pattern, $url)) {
+      $url = "http://{$url}";
+    }
+
+    return $url;
+  }
 }
