@@ -27,12 +27,16 @@ class Status
 
   public function getResponseTime()
   {
+    if (gettype($this->_responseTime) == 'double') {
+      $this->_responseTime *= 1000;
+      settype($this->_responseTime, 'integer');
+    }
+
     return $this->_responseTime;
   }
 
   public function getSummary()
   {
-    // \CurlResponse
     if ($this->_response instanceof \CurlResponse) {
       $summary = array(
         'success' => $this->isSuccess(),
