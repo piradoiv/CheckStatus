@@ -6,11 +6,12 @@ class CheckStatus
 {
   public function fetchUrl($url = null)
   {
-    $initTime = microtime(true);
     $curl = new \Curl();
+    $initTime = microtime(true);
     $response = $curl->get($url);
+    $responseTime = microtime(true) - $initTime; 
     $status = new Status($response);
-    $status->setResponseTime(microtime(true) - $initTime);
+    $status->setResponseTime($responseTime);
 
     return $status;
   }
