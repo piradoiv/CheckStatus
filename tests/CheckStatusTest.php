@@ -24,4 +24,13 @@ class CheckStatusTest extends PHPUnit_Framework_TestCase
     $this->assertNotNull($response->getCode());
     $this->assertEquals(200, $response->getCode());
   }
+
+  public function testResponseTime()
+  {
+    $response = $this->response;
+    $responseTime = $response->getResponseTime();
+
+    $this->assertNotNull($responseTime);
+    $this->assertGreaterThan(0, $responseTime);
+  }
 }

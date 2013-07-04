@@ -6,6 +6,7 @@ class Status
 {
   private $_response;
   private $_code;
+  private $_responseTime;
 
   public function __construct(\CurlResponse $response = null)
   {
@@ -19,5 +20,18 @@ class Status
     }
 
     return $this->_code;
+  }
+
+  public function getResponseTime()
+  {
+    if (!$this->_responseTime) {
+      $this->_responseTime = $this->_response->responseTime;
+    }
+
+    return $this->_responseTime;
+  }
+
+  public function setResponseTime($time) {
+    $this->_responseTime = $time;
   }
 }
