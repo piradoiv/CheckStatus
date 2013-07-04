@@ -7,6 +7,7 @@ class Status
   private $_response;
   private $_code;
   private $_responseTime;
+  private $_success;
 
   public function __construct(\CurlResponse $response = null)
   {
@@ -27,7 +28,37 @@ class Status
     return $this->_responseTime;
   }
 
-  public function setResponseTime($time) {
+  public function setResponseTime($time)
+  {
     $this->_responseTime = $time;
+  }
+
+  public function isSuccess()
+  {
+    $success = $this->checkForSuccess();  
+    if ($success) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  public function isFailure()
+  {
+    return !$this->isSuccess();
+  }
+
+  public function checkForSuccess()
+  {
+    if (!$this->_success) {
+      $statusCode = $this->getCode();
+      if ($statusCode >= 200 && $statusCode <= 207) {
+        $this->_success = true;
+      } else {
+        $this->_success = false;
+      }
+    }
+
+    return $this->_success;
   }
 }

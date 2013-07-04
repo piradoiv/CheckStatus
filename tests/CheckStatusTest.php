@@ -33,4 +33,20 @@ class CheckStatusTest extends PHPUnit_Framework_TestCase
     $this->assertNotNull($responseTime);
     $this->assertGreaterThan(0, $responseTime);
   }
+
+  public function testSuccess()
+  {
+    $response = $this->response;
+    $isSuccess = $response->isSuccess();
+
+    $this->assertTrue($isSuccess);
+  }
+
+  public function testFailure()
+  {
+    $response = $this->response;
+    $isFailure = $response->isFailure();
+
+    $this->assertFalse($isFailure);
+  }
 }
