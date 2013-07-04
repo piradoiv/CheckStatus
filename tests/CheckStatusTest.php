@@ -5,7 +5,7 @@ class CheckStatusTest extends PHPUnit_Framework_TestCase
   public function setUp()
   {
     $this->checker = new CheckStatus\CheckStatus();
-    $this->url = 'http://localhost/';
+    $this->url = 'http://www.piradoiv.com/';
     $this->response = $this->checker->fetchUrl($this->url);
   }
 
