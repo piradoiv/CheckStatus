@@ -12,7 +12,13 @@ class CheckStatus
 
     $curl = new \Curl();
     $initTime = microtime(true);
-    $response = $curl->get($url);
+    
+    try {
+      $response = $curl->get($url);
+    } catch(\CurlException $e) {
+      $response = false;
+    }
+    
     $responseTime = microtime(true) - $initTime; 
     $status = new Status($response);
     $status->setResponseTime($responseTime);
