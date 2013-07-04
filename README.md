@@ -3,5 +3,5 @@
 This library is currently under development, please
 wait a bit :)
 
-[@PiradoIV](http://twitter.com) at Twitter.
+[@PiradoIV](http://twitter.com/PiradoIV) at Twitter.
 
