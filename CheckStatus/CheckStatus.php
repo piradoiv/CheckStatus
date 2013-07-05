@@ -22,6 +22,7 @@ class CheckStatus
     $responseTime = microtime(true) - $initTime; 
     $status = new Status($response);
     $status->setResponseTime($responseTime);
+    $status->setUrl($url);
 
     return $status;
   }
