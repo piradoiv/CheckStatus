@@ -97,4 +97,13 @@ class CheckStatusTest extends PHPUnit_Framework_TestCase
     $this->assertNotNull($response->getUrl());
     $this->assertNotNull($summary['url']);
   }
+
+  public function testTimestamp()
+  {
+    $response = $this->response;
+    $summary  = $response->getSummary();
+
+    $this->assertNotNull($response->getTimestamp());
+    $this->assertNotNull($summary['timestamp']);
+  }
 }
