@@ -8,6 +8,7 @@ class Status
   private $_code;
   private $_responseTime;
   private $_success;
+  private $_url;
 
   public function __construct($response = null)
   {
@@ -41,19 +42,37 @@ class Status
       $summary = array(
         'success' => $this->isSuccess(),
         'failure' => $this->isFailure(),
-        'responseTime' => $this->getResponseTime()
+        'responseTime' => $this->getResponseTime(),
+        'url' => $this->getUrl()
       );
 
     } else {
       $summary = array(
         'success' => false,
         'failure' => true,
-        'responseTime' => -1
+        'responseTime' => -1,
+        'url' => $this->getUrl()
       );
     }
     
 
     return $summary;
+  }
+
+  public function getUrl()
+  {
+    return $this->_url;
+  }
+
+  public function setUrl($url = null)
+  {
+    if (!$url) {
+      return false;
+    }
+
+    $this->_url = $url;
+
+    return true;
   }
 
   public function setResponseTime($time)

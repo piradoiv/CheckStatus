@@ -88,4 +88,13 @@ class CheckStatusTest extends PHPUnit_Framework_TestCase
 
     $this->assertTrue(isset($summary['failure']));
   }
+
+  public function testSummaryHasUrl()
+  {
+    $response = $this->response;
+    $summary = $response->getSummary();
+
+    $this->assertNotNull($response->getUrl());
+    $this->assertNotNull($summary['url']);
+  }
 }
