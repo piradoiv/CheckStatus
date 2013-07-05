@@ -61,7 +61,13 @@ class Status
 
   public function getUrl()
   {
-    return $this->_url;
+    if (isset($this->_url)) {
+      $url = CheckStatus::prepareUrl($this->_url);
+    } else {
+      $url = null;
+    }
+
+    return $url;
   }
 
   public function setUrl($url = null)
