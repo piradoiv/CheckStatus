@@ -47,7 +47,7 @@ class CheckStatus
     return true;
   }
 
-  public function prepareUrl($url = null)
+  public static function prepareUrl($url = null)
   {
     $pattern = "/^http(s)?:\/\//";
 
