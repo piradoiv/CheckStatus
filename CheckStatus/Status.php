@@ -9,10 +9,12 @@ class Status
   private $_responseTime;
   private $_success;
   private $_url;
+  private $_timestamp;
 
   public function __construct($response = null)
   {
     $this->_response = $response;
+    $this->_timestamp = time();
 
     return $this->getSummary();
   }
@@ -43,7 +45,8 @@ class Status
         'success' => $this->isSuccess(),
         'failure' => $this->isFailure(),
         'responseTime' => $this->getResponseTime(),
-        'url' => $this->getUrl()
+        'url' => $this->getUrl(),
+        'timestamp' => $this->getTimestamp()
       );
 
     } else {
@@ -51,7 +54,8 @@ class Status
         'success' => false,
         'failure' => true,
         'responseTime' => -1,
-        'url' => $this->getUrl()
+        'url' => $this->getUrl(),
+        'timestamp' => $this->getTimestamp()
       );
     }
     
@@ -68,6 +72,11 @@ class Status
     }
 
     return $url;
+  }
+
+  public function getTimestamp()
+  {
+    return $this->_timestamp;
   }
 
   public function setUrl($url = null)
