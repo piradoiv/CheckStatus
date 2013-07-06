@@ -1,9 +1,32 @@
 <?php
+/**
+ * CheckStatus / CheckStatus
+ * =========================
+ * This is a library to check the status of a website, it returns if the
+ * response is successful, the response time, etc.
+ *
+ * @package CheckStatus
+ * @author  Ricardo Cruz <piradoiv@gmail.com>
+ * @link    https://github.com/piradoiv/CheckStatus/
+ * @since   0.1.0
+ */
 
 namespace CheckStatus;
 
+/**
+ * CheckStatus class
+ *
+ * This is the main class of the library, everything
+ * this library can do it will be done from this file
+ */
 class CheckStatus
 {
+  /**
+   * Main method to fetch all of the URL data.
+   * @param string $url The URL to fetch
+   *
+   * @return CheckStatus\Status
+   */
   public function fetchUrl($url = null)
   {
     if (!$this->isValidUrl($url)) {
@@ -27,6 +50,12 @@ class CheckStatus
     return $status;
   }
 
+  /**
+   * Checks wheter a URL is well formed or not
+   * @param string $url
+   *
+   * @return boolean
+   */
   public function isValidUrl($url = null)
   {
     if (!$url) {
@@ -47,6 +76,13 @@ class CheckStatus
     return true;
   }
 
+  /**
+   * Prepends http:// string before the URL if
+   * isn't present on the string
+   * @param string $url
+   *
+   * @return string
+   */
   public static function prepareUrl($url = null)
   {
     $pattern = "/^http(s)?:\/\//";
