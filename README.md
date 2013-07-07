@@ -11,6 +11,7 @@ On your composer.json…
 ```
 {
   "require": {
+    "shuber/curl": "dev-master",
     "checkstatus/checkstatus": "dev-master"
   }
 }
@@ -21,7 +22,10 @@ Example of usage
 
 ```
 <?php
-$checkStatus = new CheckStatus();
+// Load Composer's autoload
+require './vendor/autoload.php';
+
+$checkStatus = new CheckStatus\CheckStatus;
 $url = 'http://www.example.com/';
 $status = $checkStatus->fetchUrl($url);
 
