@@ -1,9 +1,9 @@
 <?php
 /**
- * CheckStatus / CheckStatus
+ * CheckStatus / Network
  * =========================
- * This is a library to check the status of a website, it returns if the
- * response is successful, the response time, etc.
+ * This is the class on charge to check if the
+ * network is currently available or not.
  *
  * @package CheckStatus
  * @author  Ricardo Cruz <piradoiv@gmail.com>
@@ -16,11 +16,54 @@ namespace CheckStatus;
 /**
  * Network class
  *
- * This is the class on charge to check if the network is currently available
- * or not.
+ * This is the class on charge to check if the
+ * network is currently available or not.
  */
 class Network
 {
   public $available;
+  public $lastCheck;
+  public $recheckAfter;
+  public $testUrl;
 
+  public function __construct($autocheck = true)
+  {
+    $this->recheckAfter = 60 * 5; // 5 minutes
+    $this->testUrl = 'http://www.google.com/';
+
+    if ($autocheck === true) {
+      $this->checkAvailability();
+    }
+  }
+
+  public function check()
+  {
+    $currentTime = microtime(true);
+    $expectedTime = $this->lastCheck + $this->recheckAfter;
+
+    if ($currentTime > $expectedTime) {
+      $this->available = $this->checkNetwork();
+    }
+
+    return $this->available;
+  }
+
+  public function checkNetwork()
+  {
+    $this->lastCheck = microtime(true);
+
+    $curl = new \Curl();
+
+    try {
+      $curlResponse = $curl->get($this->testUrl);
+      $status = new Status($curlResponse);
+      if ($status->getCode() == 200) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch(\CurlException $e) {
+      return false;
+    }
+  }
 }
