@@ -5,6 +5,7 @@ class CheckStatusTest extends PHPUnit_Framework_TestCase
   public function setUp()
   {
     $this->checker = new CheckStatus\CheckStatus();
+    $this->checker->network->testUrl = 'http://localhost/';
     $this->url = 'http://www.piradoiv.com/';
     $this->response = $this->checker->fetchUrl($this->url);
   }
@@ -105,5 +106,15 @@ class CheckStatusTest extends PHPUnit_Framework_TestCase
 
     $this->assertNotNull($response->getTimestamp());
     $this->assertNotNull($summary['timestamp']);
+  }
+
+  /**
+   * @expectedException CheckStatus\NetworkIsDownException
+   */
+  public function testExceptionOnDownNetwork()
+  {
+    $checker = &$this->checker;
+    $checker->network->available = false;
+    $checker->fetchUrl('http://www.example.com/');
   }
 }
