@@ -21,6 +21,13 @@ namespace CheckStatus;
  */
 class CheckStatus
 {
+  public $network;
+
+  public function __construct()
+  {
+    $this->network = new Network;  
+  }
+
   /**
    * Main method to fetch all of the URL data.
    * @param string $url The URL to fetch
@@ -29,6 +36,10 @@ class CheckStatus
    */
   public function fetchUrl($url = null)
   {
+    if (!$this->network->check()) {
+      throw new NetworkIsDownException;
+    }
+
     if (!$this->isValidUrl($url)) {
       return false;
     }
