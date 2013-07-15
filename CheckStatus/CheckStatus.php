@@ -49,6 +49,13 @@ class CheckStatus
     
     try {
       $response = $curl->get($url);
+
+      // Force a check for network availability
+      $this->network->lastCheck = 0;
+      $networkAvailable = $this->network->check();
+      if (!$networkAvailable) {
+        throw new NetworkIsDownException;
+      }
     } catch(\CurlException $e) {
       $response = false;
     }
