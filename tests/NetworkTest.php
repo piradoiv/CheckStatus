@@ -24,8 +24,12 @@ class NetworkTest extends PHPUnit_Framework_TestCase
     $firstLastCheck = $net->lastCheck;
     $net->check();
     $secondLastCheck = $net->lastCheck;
+    $net->lastCheck = 0;
+    $net->check();
+    $thirdLastCheck = $net->lastCheck;
 
     $this->assertEquals($firstLastCheck, $secondLastCheck);
+    $this->assertNotEquals($firstLastCheck, $thirdLastCheck);
   }
 
   public function testAvailability()
@@ -36,7 +40,7 @@ class NetworkTest extends PHPUnit_Framework_TestCase
     $this->assertFalse($net->available);
 
     $net->lastCheck = 0; // Forces to refresh the availability
-    $net->testUrl = 'http://www.google.com/';
+    $net->testUrl = 'http://localhost/';
     $net->check();
     $this->assertTrue($net->available);
   }

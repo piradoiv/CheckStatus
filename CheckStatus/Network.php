@@ -32,7 +32,7 @@ class Network
     $this->testUrl = 'http://www.google.com/';
 
     if ($autocheck === true) {
-      $this->checkAvailability();
+      $this->check();
     }
   }
 
@@ -42,6 +42,7 @@ class Network
     $expectedTime = $this->lastCheck + $this->recheckAfter;
 
     if ($currentTime > $expectedTime) {
+      $this->lastCheck = microtime(true);
       $this->available = $this->checkNetwork();
     }
 
@@ -50,8 +51,6 @@ class Network
 
   public function checkNetwork()
   {
-    $this->lastCheck = microtime(true);
-
     $curl = new \Curl();
 
     try {
