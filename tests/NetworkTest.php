@@ -40,7 +40,7 @@ class NetworkTest extends PHPUnit_Framework_TestCase
     $this->assertFalse($net->available);
 
     $net->lastCheck = 0; // Forces to refresh the availability
-    $net->testUrl = 'http://localhost/';
+    $net->testUrl = 'http://www.google.com/';
     $net->check();
     $this->assertTrue($net->available);
   }
