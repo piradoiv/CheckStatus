@@ -1,5 +1,6 @@
 CheckStatus Library
 ===================
+[![Build Status](https://travis-ci.org/piradoiv/CheckStatus.png?branch=master)](https://travis-ci.org/piradoiv/CheckStatus)
 
 This micro library aims just to connect to a URL and return the status of the response, like the status code, response milliseconds and a few more details.
 

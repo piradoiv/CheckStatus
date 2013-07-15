@@ -76,12 +76,12 @@ class Network
    *
    * @return boolean True if available, false otherwise
    */
-  public function check()
+  public function check($force = false)
   {
     $currentTime = microtime(true);
     $expectedTime = $this->lastCheck + $this->recheckAfter;
 
-    if ($currentTime > $expectedTime) {
+    if ($force or $currentTime > $expectedTime) {
       $this->lastCheck = microtime(true);
       $this->available = $this->checkNetwork();
     }

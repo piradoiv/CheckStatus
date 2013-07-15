@@ -50,6 +50,11 @@ class CheckStatus
     try {
       $response = $curl->get($url);
     } catch(\CurlException $e) {
+      $networkAvailable = $this->network->check(true);
+      if (!$networkAvailable) {
+        throw new NetworkIsDownException;
+      }
+      
       $response = false;
     }
     
