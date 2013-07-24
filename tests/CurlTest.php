@@ -20,4 +20,12 @@ class CurlTest extends PHPUnit_Framework_TestCase
     $response = $curl->get('http://www.piradoiv.com/');
     $this->assertInternalType('array', $response);
   }
+
+  public function testCanSetAProxy()
+  {
+    $proxy = '111.95.243.36:80';
+    $curl = &$this->curl;
+    $curl->setProxy($proxy);
+    $this->assertEquals($curl->proxy, $proxy);
+  }
 }

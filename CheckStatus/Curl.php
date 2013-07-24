@@ -34,6 +34,13 @@ class Curl
   public $userAgent;
 
   /**
+   * Proxy to use
+   *
+   * @var string $proxy
+   */
+  public $proxy;
+
+  /**
    * Constructor of the class
    */
   public function __construct()
@@ -59,6 +66,10 @@ class Curl
 
     curl_setopt_array($handler, $options);
 
+    if ($this->proxy) {
+      curl_setopt($handler, CURLOPT_PROXY, $this->proxy);
+    }
+
     return $handler;
   }
 
@@ -82,6 +93,11 @@ class Curl
   public function get($url, $options = array())
   {
     return $this->generalRequest('get', $url, $options);
+  }
+
+  public function setProxy($proxyString)
+  {
+    $this->proxy = $proxyString;
   }
 
 }
