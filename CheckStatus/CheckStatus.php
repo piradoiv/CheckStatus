@@ -22,10 +22,13 @@ namespace CheckStatus;
 class CheckStatus
 {
   public $network;
+  public $userAgent;
+  public $referer;
 
   public function __construct()
   {
-    $this->network = new Network;  
+    $this->network   = new Network;
+    $this->userAgent = 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/28.0.1468.0 Safari/537.36';
   }
 
   /**
@@ -45,8 +48,12 @@ class CheckStatus
     }
 
     $curl = new \Curl();
+    $curl->user_agent = $this->userAgent;
+    if ($this->referer) {
+      $curl->referer = $this->referer;
+    }
     $initTime = microtime(true);
-    
+
     try {
       $response = $curl->get($url);
     } catch(\CurlException $e) {
@@ -54,10 +61,10 @@ class CheckStatus
       if (!$networkAvailable) {
         throw new NetworkIsDownException;
       }
-      
+
       $response = false;
     }
-    
+
     $responseTime = microtime(true) - $initTime; 
     $status = new Status($response);
     $status->setResponseTime($responseTime);
@@ -88,7 +95,7 @@ class CheckStatus
     if (!preg_match("/\./", $parsedUrl['host'])) {
       return false;
     }
-  
+
     return true;
   }
 
