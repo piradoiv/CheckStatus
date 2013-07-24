@@ -34,6 +34,21 @@ class Curl
   public $userAgent;
 
   /**
+   * Proxy to use
+   *
+   * @var string $proxy
+   */
+  public $proxy;
+
+  /**
+   * Authentication to use, in a
+   * username:password form
+   *
+   * @var string @proxyAuth
+   */
+  protected $proxyAuth;
+
+  /**
    * Constructor of the class
    */
   public function __construct()
@@ -50,7 +65,8 @@ class Curl
       CURLOPT_MAXREDIRS => 5,
       CURLOPT_USERAGENT => $this->userAgent,
       CURLOPT_NOSIGNAL => true,
-      CURLOPT_NOPROGRESS => true
+      CURLOPT_NOPROGRESS => true,
+      CURLOPT_TIMEOUT => 3
     );
 
     foreach ($userOptions as $key => $value) {
@@ -68,7 +84,16 @@ class Curl
       $options[CURLOPT_POST] = true;
     }
 
+    if ($this->proxy) {
+      $options[CURLOPT_PROXY] = $this->proxy;
+    }
+
+    if ($this->proxyAuth) {
+      $options[CURLOPT_PROXYAUTH] = $this->proxyAuth;
+    }
+
     $handler = $this->prepareHandler($url, $options);
+
     $html = curl_exec($handler);
 
     $response = array(
@@ -82,6 +107,21 @@ class Curl
   public function get($url, $options = array())
   {
     return $this->generalRequest('get', $url, $options);
+  }
+
+  public function setProxy($proxyString)
+  {
+    $this->proxy = $proxyString;
+  }
+
+  public function setAuth($auth)
+  {
+    if ($auth) {
+      $this->proxyAuth = $auth;
+      return true;
+    } else {
+      return false;
+    }
   }
 
 }
