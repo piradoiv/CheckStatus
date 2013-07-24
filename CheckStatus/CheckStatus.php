@@ -46,7 +46,7 @@ class CheckStatus
 
     $curl = new \Curl();
     $initTime = microtime(true);
-    
+
     try {
       $response = $curl->get($url);
     } catch(\CurlException $e) {
@@ -54,10 +54,10 @@ class CheckStatus
       if (!$networkAvailable) {
         throw new NetworkIsDownException;
       }
-      
+
       $response = false;
     }
-    
+
     $responseTime = microtime(true) - $initTime; 
     $status = new Status($response);
     $status->setResponseTime($responseTime);
@@ -88,7 +88,7 @@ class CheckStatus
     if (!preg_match("/\./", $parsedUrl['host'])) {
       return false;
     }
-  
+
     return true;
   }
 
