@@ -5,7 +5,7 @@ class NetworkTest extends PHPUnit_Framework_TestCase
   public function setUp()
   {
     $this->network = new CheckStatus\Network(false);
-    $this->network->testUrl = 'http://localhost/';
+    $this->network->testUrl = 'http://www.piradoiv.com/';
   }
 
   public function testLastCheck()
@@ -40,7 +40,7 @@ class NetworkTest extends PHPUnit_Framework_TestCase
     $this->assertFalse($net->available);
 
     $net->lastCheck = 0; // Forces to refresh the availability
-    $net->testUrl = 'http://www.google.com/';
+    $net->testUrl = 'http://www.piradoiv.com/';
     $net->check();
     $this->assertTrue($net->available);
   }
