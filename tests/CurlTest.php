@@ -9,6 +9,6 @@ class CurlTest extends PHPUnit_Framework_TestCase
   public function testClassExists()
   {
     $curl = new CheckStatus\Curl();
-    $this->assertInstanceOf('CheckStatus\Curl', $curl, "Try running composer install");
+    $this->assertInstanceOf('CheckStatus\Curl', $curl);
   }
 }
