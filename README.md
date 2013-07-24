@@ -30,7 +30,7 @@ $checkStatus = new CheckStatus\CheckStatus;
 $url = 'http://www.example.com/';
 
 // Need to use a proxy?, you're covered
-$checkStatus->setProxy('111.111.111.111');
+$checkStatus->setProxy('111.111.111.111:80');
 $checkStatus->setProxyAuth('username:password');
 
 // Fetch the data
