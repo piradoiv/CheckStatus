@@ -131,7 +131,6 @@ class Status
         'timestamp' => $this->getTimestamp()
       );
     }
-    
 
     return $summary;
   }
@@ -200,7 +199,7 @@ class Status
    */
   public function isSuccess()
   {
-    $success = $this->checkForSuccess();  
+    $success = $this->checkForSuccess();
     if ($success) {
       return true;
     } else {
