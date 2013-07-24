@@ -44,16 +44,16 @@ class CheckStatus
       return false;
     }
 
-    $curl = new \Curl();
+    $curl = new Curl();
     $initTime = microtime(true);
 
     try {
       $response = $curl->get($url);
-    } catch(\CurlException $e) {
-      $networkAvailable = $this->network->check(true);
-      if (!$networkAvailable) {
-        throw new NetworkIsDownException;
-      }
+    } catch(\Exception $e) {
+      // $networkAvailable = $this->network->check(true);
+      // if (!$networkAvailable) {
+      //   throw new NetworkIsDownException;
+      // }
 
       $response = false;
     }
