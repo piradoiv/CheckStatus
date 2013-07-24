@@ -16,6 +16,8 @@ class CurlTest extends PHPUnit_Framework_TestCase
 
   public function testCanFetchUrl()
   {
-
+    $curl = &$this->curl;
+    $response = $curl->get('http://www.piradoiv.com/');
+    $this->assertInstanceOf('CheckStatus\Status', $response);
   }
 }
