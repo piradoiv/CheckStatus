@@ -65,7 +65,8 @@ class Curl
       CURLOPT_MAXREDIRS => 5,
       CURLOPT_USERAGENT => $this->userAgent,
       CURLOPT_NOSIGNAL => true,
-      CURLOPT_NOPROGRESS => true
+      CURLOPT_NOPROGRESS => true,
+      CURLOPT_TIMEOUT => 3
     );
 
     foreach ($userOptions as $key => $value) {
