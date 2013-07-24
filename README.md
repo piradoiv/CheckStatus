@@ -25,8 +25,15 @@ Example of usage
 // Load Composer's autoload
 require './vendor/autoload.php';
 
+// Prepare some settings
 $checkStatus = new CheckStatus\CheckStatus;
 $url = 'http://www.example.com/';
+
+// Need to use a proxy?, you're covered
+$checkStatus->setProxy('111.111.111.111:80');
+$checkStatus->setProxyAuth('username:password');
+
+// Fetch the data
 $status = $checkStatus->fetchUrl($url);
 
 // Milliseconds

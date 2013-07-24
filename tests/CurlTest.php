@@ -33,7 +33,7 @@ class CurlTest extends PHPUnit_Framework_TestCase
   {
     $auth = 'username:password';
     $curl = &$this->curl;
-    $response = $curl->setAuth($auth);
+    $response = $curl->setProxyAuth($auth);
     $this->assertTrue($response);
   }
 }
