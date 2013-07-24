@@ -12,7 +12,6 @@ On your composer.json…
 ```
 {
   "require": {
-    "shuber/curl": "dev-master",
     "checkstatus/checkstatus": "dev-master"
   }
 }
