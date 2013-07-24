@@ -41,6 +41,14 @@ class Curl
   public $proxy;
 
   /**
+   * Authentication to use, in a
+   * username:password form
+   *
+   * @var string @proxyAuth
+   */
+  protected $proxyAuth;
+
+  /**
    * Constructor of the class
    */
   public function __construct()
@@ -66,10 +74,6 @@ class Curl
 
     curl_setopt_array($handler, $options);
 
-    if ($this->proxy) {
-      curl_setopt($handler, CURLOPT_PROXY, $this->proxy);
-    }
-
     return $handler;
   }
 
@@ -77,6 +81,14 @@ class Curl
   {
     if (strtolower($method) == 'post') {
       $options[CURLOPT_POST] = true;
+    }
+
+    if ($this->proxy) {
+      curl_setopt($handler, CURLOPT_PROXY, $this->proxy);
+    }
+
+    if ($this->proxyAuth) {
+      curl_setopt($handler, CURLOPT_PROXYAUTH, $this->proxyAuth);
     }
 
     $handler = $this->prepareHandler($url, $options);
@@ -98,6 +110,16 @@ class Curl
   public function setProxy($proxyString)
   {
     $this->proxy = $proxyString;
+  }
+
+  public function setAuth($auth)
+  {
+    if ($auth) {
+      $this->proxyAuth = $auth;
+      return true;
+    } else {
+      return false;
+    }
   }
 
 }

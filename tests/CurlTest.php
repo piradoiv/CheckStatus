@@ -28,4 +28,12 @@ class CurlTest extends PHPUnit_Framework_TestCase
     $curl->setProxy($proxy);
     $this->assertEquals($curl->proxy, $proxy);
   }
+
+  public function testCanSetAuthentication()
+  {
+    $auth = 'username:password';
+    $curl = &$this->curl;
+    $response = $curl->setAuth($auth);
+    $this->assertTrue($response);
+  }
 }
