@@ -24,6 +24,8 @@ class CheckStatus
   public $network;
   public $userAgent;
   public $referer;
+  public $proxy;
+  public $proxyAuth;
 
   public function __construct()
   {
@@ -51,6 +53,14 @@ class CheckStatus
     $initTime = microtime(true);
 
     try {
+      if ($this->proxy) {
+        $curl->proxy = $this->proxy;
+      }
+
+      if ($this->proxyAuth) {
+        $curl->setProxyAuth($this->proxyAuth);
+      }
+
       $response = $curl->get($url);
     } catch(\Exception $e) {
       $networkAvailable = $this->network->check(true);
