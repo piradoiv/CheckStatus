@@ -23,7 +23,7 @@ namespace CheckStatus;
 class Status
 {
   /**
-   * @param \Curl\Response $_response
+   * @param array $_response
    * @private
    */
   private $_response;
@@ -66,7 +66,7 @@ class Status
    */
   public function __construct($response = null)
   {
-    $this->_response = $response;
+    $this->_response  = $response;
     $this->_timestamp = time();
 
     return $this->getSummary();
@@ -82,7 +82,8 @@ class Status
   public function getCode()
   {
     if (!$this->_code) {
-      $this->_code = $this->_response->headers['Status-Code'];
+      $handler = $this->_response['handler'];
+      $this->_code = curl_getinfo($handler, CURLINFO_HTTP_CODE);
     }
 
     return $this->_code;
@@ -113,7 +114,7 @@ class Status
    */
   public function getSummary()
   {
-    if ($this->_response instanceof \CurlResponse) {
+    if ($this->_response != null) {
       $summary = array(
         'success' => $this->isSuccess(),
         'failure' => $this->isFailure(),
@@ -131,7 +132,6 @@ class Status
         'timestamp' => $this->getTimestamp()
       );
     }
-    
 
     return $summary;
   }
@@ -200,7 +200,7 @@ class Status
    */
   public function isSuccess()
   {
-    $success = $this->checkForSuccess();  
+    $success = $this->checkForSuccess();
     if ($success) {
       return true;
     } else {

@@ -62,7 +62,7 @@ class Network
   public function __construct($autocheck = true)
   {
     $this->recheckAfter = 60 * 5; // 5 minutes
-    $this->testUrl = 'http://www.google.com/';
+    $this->testUrl = 'http://www.piradoiv.com/';
 
     if ($autocheck === true) {
       $this->check();
@@ -97,7 +97,7 @@ class Network
    */
   private function checkNetwork()
   {
-    $curl = new \Curl();
+    $curl = new Curl();
 
     try {
       $curlResponse = $curl->get($this->testUrl);
@@ -107,7 +107,7 @@ class Network
       } else {
         return false;
       }
-    } catch(\CurlException $e) {
+    } catch(\Exception $e) {
       return false;
     }
   }

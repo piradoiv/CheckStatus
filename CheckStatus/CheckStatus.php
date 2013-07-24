@@ -47,16 +47,12 @@ class CheckStatus
       return false;
     }
 
-    $curl = new \Curl();
-    $curl->user_agent = $this->userAgent;
-    if ($this->referer) {
-      $curl->referer = $this->referer;
-    }
+    $curl = new Curl();
     $initTime = microtime(true);
 
     try {
       $response = $curl->get($url);
-    } catch(\CurlException $e) {
+    } catch(\Exception $e) {
       $networkAvailable = $this->network->check(true);
       if (!$networkAvailable) {
         throw new NetworkIsDownException;
@@ -65,7 +61,7 @@ class CheckStatus
       $response = false;
     }
 
-    $responseTime = microtime(true) - $initTime; 
+    $responseTime = microtime(true) - $initTime;
     $status = new Status($response);
     $status->setResponseTime($responseTime);
     $status->setUrl($url);
