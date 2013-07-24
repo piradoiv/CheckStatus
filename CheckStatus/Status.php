@@ -23,10 +23,10 @@ namespace CheckStatus;
 class Status
 {
   /**
-   * @param \Curl\Response $_response
+   * @param resource $_handler
    * @private
    */
-  private $_response;
+  private $_handler;
 
   /**
    * @param integer $_code
@@ -64,9 +64,9 @@ class Status
    *
    * @return array Summary of the response
    */
-  public function __construct($response = null)
+  public function __construct($handler = null)
   {
-    $this->_response = $response;
+    $this->_handler   = $handler;
     $this->_timestamp = time();
 
     return $this->getSummary();
@@ -82,7 +82,7 @@ class Status
   public function getCode()
   {
     if (!$this->_code) {
-      $this->_code = $this->_response->headers['Status-Code'];
+      $this->_code = curl_getinfo($this->_handler, CURLINFO_HTTP_CODE);
     }
 
     return $this->_code;
