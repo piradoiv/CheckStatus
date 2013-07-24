@@ -41,17 +41,21 @@ class Curl
     $this->userAgent = 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/28.0.1468.0 Safari/537.36';
   }
 
-  private function prepareHandler($url, $options = array())
+  private function prepareHandler($url, $userOptions = array())
   {
     $handler = curl_init($url);
-    $defaultOptions = array(
+    $options = array(
       CURLOPT_AUTOREFERER => true,
       CURLOPT_RETURNTRANSFER => true,
       CURLOPT_MAXREDIRS => 5,
       CURLOPT_USERAGENT => $this->userAgent,
+      CURLOPT_NOSIGNAL => true,
+      CURLOPT_NOPROGRESS => true
     );
 
-    $options = array_merge($defaultOptions, $options);
+    foreach ($userOptions as $key => $value) {
+      $options[$key] = $value;
+    }
 
     curl_setopt_array($handler, $options);
 
@@ -66,9 +70,13 @@ class Curl
 
     $handler = $this->prepareHandler($url, $options);
     $html = curl_exec($handler);
-    $status = new Status($handler, $html);
 
-    return $status;
+    $response = array(
+      'html'    => $html,
+      'handler' => $handler
+    );
+
+    return $response;
   }
 
   public function get($url, $options = array())

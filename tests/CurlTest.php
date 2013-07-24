@@ -18,6 +18,6 @@ class CurlTest extends PHPUnit_Framework_TestCase
   {
     $curl = &$this->curl;
     $response = $curl->get('http://www.piradoiv.com/');
-    $this->assertInstanceOf('CheckStatus\Status', $response);
+    $this->assertInternalType('array', $response);
   }
 }

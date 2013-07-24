@@ -12,8 +12,8 @@ class CheckStatusTest extends PHPUnit_Framework_TestCase
 
   public function testComposerIsLoaded()
   {
-    $curl = new Curl();
-    $this->assertInstanceOf('Curl', $curl, "Try running composer install");
+    $curl = new CheckStatus\Curl;
+    $this->assertInstanceOf('CheckStatus\Curl', $curl, "Try running composer install");
   }
 
   public function testCanFetchUrl()
