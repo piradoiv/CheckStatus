@@ -84,14 +84,15 @@ class Curl
     }
 
     if ($this->proxy) {
-      curl_setopt($handler, CURLOPT_PROXY, $this->proxy);
+      $options[CURLOPT_PROXY] = $this->proxy;
     }
 
     if ($this->proxyAuth) {
-      curl_setopt($handler, CURLOPT_PROXYAUTH, $this->proxyAuth);
+      $options[CURLOPT_PROXYAUTH] = $this->proxyAuth;
     }
 
     $handler = $this->prepareHandler($url, $options);
+
     $html = curl_exec($handler);
 
     $response = array(
