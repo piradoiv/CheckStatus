@@ -114,7 +114,7 @@ class Curl
     $this->proxy = $proxyString;
   }
 
-  public function setAuth($auth)
+  public function setProxyAuth($auth)
   {
     if ($auth) {
       $this->proxyAuth = $auth;
