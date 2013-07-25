@@ -49,6 +49,15 @@ class Curl
   protected $proxyAuth;
 
   /**
+   * Determines if we want to follow redirections
+   * and specify a limit. Values can be "false"
+   * or an integer
+   *
+   * @var mixed @followRedirections
+   */
+  public $followRedirections = false;
+
+  /**
    * Constructor of the class
    */
   public function __construct()
@@ -90,6 +99,11 @@ class Curl
 
     if ($this->proxyAuth) {
       $options[CURLOPT_PROXYAUTH] = $this->proxyAuth;
+    }
+
+    if (is_int($this->followRedirections) && $this->followRedirections > 0) {
+      $options[CURLOPT_FOLLOWLOCATION] = true;
+      $options[CURLOPT_MAXREDIRS] = $this->followRedirections;
     }
 
     $handler = $this->prepareHandler($url, $options);
