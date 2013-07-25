@@ -27,6 +27,7 @@ class CheckStatus
   public $proxy;
   public $proxyAuth;
   public $redirections = 3;
+  public $curl;
 
   public function __construct()
   {
@@ -50,7 +51,8 @@ class CheckStatus
       return false;
     }
 
-    $curl = new Curl();
+    $this->curl = new Curl();
+    $curl = &$this->curl;
     $initTime = microtime(true);
 
     try {
@@ -64,22 +66,37 @@ class CheckStatus
         $curl->setProxyAuth($this->proxyAuth);
       }
 
+      $this->network->curl = &$this->curl;
       $response = $curl->get($url);
-    } catch(\Exception $e) {
-      $networkAvailable = $this->network->check(true);
-      if (!$networkAvailable) {
-        throw new NetworkIsDownException;
-      }
+      $responseTime = microtime(true) - $initTime;
+      $status = new Status($response);
+      $status->setResponseTime($responseTime);
+      $status->setUrl($url);
 
+      if ($status->isFailure()) {
+        $this->forceNetworkCheck();
+      }
+    } catch(\Exception $e) {
+      $this->forceNetworkCheck();
       $response = false;
+      $status = new Status($response);
     }
 
-    $responseTime = microtime(true) - $initTime;
-    $status = new Status($response);
-    $status->setResponseTime($responseTime);
-    $status->setUrl($url);
-
     return $status;
+  }
+
+  /**
+   * Forces a network check and throws
+   * an exception if is down
+   *
+   * @return void
+   */
+  private function forceNetworkCheck()
+  {
+    $networkAvailable = $this->network->check(true);
+    if (!$networkAvailable) {
+      throw new NetworkIsDownException;
+    }
   }
 
   /**
