@@ -117,4 +117,15 @@ class CheckStatusTest extends PHPUnit_Framework_TestCase
     $checker->network->available = false;
     $checker->fetchUrl('http://www.example.com/');
   }
+
+  /**
+   * @expectedException CheckStatus\NetworkIsDownException
+   */
+  public function testThrowsNetworkIsDownWhenProxyFails()
+  {
+    $checker = &$this->checker;
+    $checker->redirections = 3;
+    $checker->proxy = '241.111.111.111:1234';
+    $checker->fetchUrl('http://www.piradoiv.com/');
+  }
 }
