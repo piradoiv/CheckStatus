@@ -50,6 +50,7 @@ class CheckStatus
     }
 
     $curl = new Curl();
+    $curl->followRedirections = 3;
     $initTime = microtime(true);
 
     try {
