@@ -26,6 +26,7 @@ class CheckStatus
   public $referer;
   public $proxy;
   public $proxyAuth;
+  public $redirections = 3;
 
   public function __construct()
   {
@@ -53,6 +54,8 @@ class CheckStatus
     $initTime = microtime(true);
 
     try {
+      $curl->followRedirections = $this->redirections;
+
       if ($this->proxy) {
         $curl->proxy = $this->proxy;
       }
