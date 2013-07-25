@@ -53,6 +53,13 @@ class Network
   public $testUrl;
 
   /**
+   * Specify a Curl object to use
+   *
+   * @var Curl $curl
+   */
+  public $curl;
+
+  /**
    * Constructor of the class, we can pass a
    * true on first parameter to call $this->check()
    * on load
@@ -97,7 +104,11 @@ class Network
    */
   private function checkNetwork()
   {
-    $curl = new Curl();
+    if (!$this->curl) {
+      $this->curl = new Curl();
+    }
+
+    $curl = $this->curl;
 
     try {
       $curlResponse = $curl->get($this->testUrl);
